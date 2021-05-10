@@ -13,31 +13,30 @@ public class Uebung4_METHODEN {
 	
 	private File inputFile;
 	private Scanner in;
+	private int m;
 	
-	public void setUp() throws FileNotFoundException
-	{
-		inputFile = new File("C:\\Users\\Colin\\eclipse-workspace\\uebung4_lab\\src\\uebung4_lab\\testo.txt");
+	public void setUp() throws FileNotFoundException {
+		inputFile = new File("C:\\Projekte\\HS\\Lab3\\testfile.txt"); // "C:\\Users\\Colin\\eclipse-workspace\\uebung4_lab\\src\\uebung4_lab\\testo.txt"
 		in = new Scanner(inputFile);
+		m = 5;
 	}
-	
-	public void writeToFile() throws IOException
-	{
+		
+	public void writeToFile() throws IOException {
 		int testINT = 42;
 		Integer testINTEGER = 39;
 		String testSTRING = "Test String";
-		FileWriter fwForTask2 = new FileWriter("C:\\Users\\Colin\\eclipse-workspace\\uebung4_lab\\src\\uebung4_lab\\resultfw.txt");
+		FileWriter fwForTask2 = new FileWriter("resultfw.txt"); // "C:\\Users\\Colin\\eclipse-workspace\\uebung4_lab\\src\\uebung4_lab\\resultfw.txt"
 		fwForTask2.write(testINT);
 		fwForTask2.write(testINTEGER);
 		fwForTask2.write(testSTRING);
 		fwForTask2.close();	
 	}
 	
-	public void writeToFileWithPrintWriter() throws FileNotFoundException 
-	{
+	public void writeToFileWithPrintWriter() throws FileNotFoundException {
 		int testINT = 42;
 		Integer testINTEGER = 39;
 		String testSTRING = "Test String";
-		PrintWriter pwForTask2 = new PrintWriter("C:\\Users\\Colin\\eclipse-workspace\\uebung4_lab\\src\\uebung4_lab\\resultpw.txt");
+		PrintWriter pwForTask2 = new PrintWriter("‪resultpw.txt"); // "C:\\Users\\Colin\\eclipse-workspace\\uebung4_lab\\src\\uebung4_lab\\resultpw.txt"
 		pwForTask2.println(testINT);
 		pwForTask2.println(testINTEGER);
 		pwForTask2.println(testSTRING);
@@ -45,11 +44,10 @@ public class Uebung4_METHODEN {
 	}
 	
 	
-	public static void main(String[] args) throws IOException {
-		
+	public static void main(String[] args) throws IOException, FileNotFoundException {
 		
 		Uebung4_METHODEN test = new Uebung4_METHODEN();
-		// Test f�r Aufgabe 2
+		// Test für Aufgabe 2
 		test.writeToFile();
 		test.writeToFileWithPrintWriter();
 		
@@ -59,53 +57,46 @@ public class Uebung4_METHODEN {
 		
 	}
 		
-		private void readCharacters(Scanner in) throws FileNotFoundException {
+	private void readCharacters(Scanner in) throws FileNotFoundException {
 		//in.useDelimiter("[^A-Za-z0-9]");
-		PrintWriter pw = new PrintWriter("C:\\Users\\Colin\\eclipse-workspace\\uebung4_lab\\src\\uebung4_lab\\Histogram.txt");
+		PrintWriter pw = new PrintWriter("‪Histogram.txt"); // "C:\\Users\\Colin\\eclipse-workspace\\uebung4_lab\\src\\uebung4_lab\\Histogram.txt"
 		String out = "";
 		String str = "";
 		char[] chars = new char[0];
 
-		
-		while (in.hasNext()){
+		while (in.hasNext()) {
 		str = str + in.nextLine();	
 		str = str.toUpperCase();  
 		chars = str.toCharArray(); 
 		}
 		Arrays.sort(chars);
+		
 	    HashMap<Character, Integer> charMap = new HashMap<>();
-			   
-			    
-	    for (Character ch : chars) 
-		{
-			if(charMap.containsKey(ch))
-			{
-			    charMap.put(ch, charMap.get(ch) +1);
-			}
-			else
-			{
-			    charMap.put(ch, 1);
-			}
+			   	    
+	    for (Character ch : chars) {
+			if(charMap.containsKey(ch)) charMap.put(ch, charMap.get(ch) +1);
+			else charMap.put(ch, 1);
 		}
 			    
-		for (Character key : charMap.keySet()) 
-		{
-			out += (key + ": ");//+ charMap.get(key) + " | ");
-			for(int i = 1; i <= charMap.get(key); i++) 
-			{
+		for (Character key : charMap.keySet()) {
+			int n = charMap.get(key);
+			if((n / m) < 1) n = 1;
+			else n /= m;
+			out += (key + ": ");
+			for(int i = 1; i <= n; i++) {
 				out += ("*");
 				if((i % 10) == 0) out += ("|");
 			}
 			out += ("\n");
-		
 		}
+		
 		System.out.println(out);
+		
 		pw.println(charMap);
+		pw.println("Histogram entspricht Faktor: " + m);
 		pw.println(out);
-		
-		
 		
 		in.close();
 		pw.close();	    	
 	}
-	}
+}
