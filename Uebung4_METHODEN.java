@@ -15,13 +15,30 @@ public class Uebung4_METHODEN {
 	private Scanner in;
 	private int m;
 	
-	public void setUp() throws FileNotFoundException {
+		
+	
+	public static void main(String[] args) throws IOException, FileNotFoundException {
+		
+		Uebung4_METHODEN test = new Uebung4_METHODEN();
+
+		// Test für Aufgabe 1 + 2
+		test.writeToFile();
+		test.writeToFileWithPrintWriter();
+		
+		// Test für Aufgabe 3 + 4
+		test.setUp();
+		test.readCharacters(test.in);
+		
+	}
+
+public void setUp() throws FileNotFoundException {
 		inputFile = new File("C:\\Projekte\\HS\\Lab3\\testfile.txt"); // "C:\\Users\\Colin\\eclipse-workspace\\uebung4_lab\\src\\uebung4_lab\\testo.txt"
 		in = new Scanner(inputFile);
 		m = 5;
 	}
-		
-	public void writeToFile() throws IOException {
+
+// Write an Integer, String and int with a FileWriter
+public void writeToFile() throws IOException {
 		int testINT = 42;
 		Integer testINTEGER = 39;
 		String testSTRING = "Test String";
@@ -31,7 +48,8 @@ public class Uebung4_METHODEN {
 		fwForTask2.write(testSTRING);
 		fwForTask2.close();	
 	}
-	
+
+	// Write an Integer, String and int with a PrintWriter
 	public void writeToFileWithPrintWriter() throws FileNotFoundException {
 		int testINT = 42;
 		Integer testINTEGER = 39;
@@ -42,20 +60,8 @@ public class Uebung4_METHODEN {
 		pwForTask2.println(testSTRING);
 		pwForTask2.close();	
 	}
-	
-	
-	public static void main(String[] args) throws IOException, FileNotFoundException {
-		
-		Uebung4_METHODEN test = new Uebung4_METHODEN();
-		// Test für Aufgabe 2
-		test.writeToFile();
-		test.writeToFileWithPrintWriter();
-		
-		// Aufgabe 3 + 4
-		test.setUp();
-		test.readCharacters(test.in);
-		
-	}
+
+
 		
 	private void readCharacters(Scanner in) throws FileNotFoundException {
 		//in.useDelimiter("[^A-Za-z0-9]");
@@ -64,13 +70,20 @@ public class Uebung4_METHODEN {
 		String str = "";
 		char[] chars = new char[0];
 
+// Put the String into an Array of single Chars
 		while (in.hasNext()) {
 		str = str + in.nextLine();	
 		str = str.toUpperCase();  
 		chars = str.toCharArray(); 
 		}
+//for (int i = 0; i < chars.length; i++) {
+		//	System.out.println(chars[i]);
+		//}
+
+
 		Arrays.sort(chars);
-		
+
+// Create a HashMap to count the occurrences of Chars		
 	    HashMap<Character, Integer> charMap = new HashMap<>();
 			   	    
 	    for (Character ch : chars) {
@@ -78,6 +91,7 @@ public class Uebung4_METHODEN {
 			else charMap.put(ch, 1);
 		}
 			    
+// Count the occurrences and print them out
 		for (Character key : charMap.keySet()) {
 			int n = charMap.get(key);
 			if((n / m) < 1) n = 1;
